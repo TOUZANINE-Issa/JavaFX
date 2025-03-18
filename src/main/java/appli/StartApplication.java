@@ -13,11 +13,12 @@ public class StartApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        mainStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("acceuil/LoginView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello !");
-        stage.setScene(scene);
-        stage.show();
+        Scene scene = new Scene(fxmlLoader.load(), 220, 360);
+        mainStage.setTitle("Connexion/Inscription");
+        mainStage.setScene(scene);
+        mainStage.show();
     }
 
     public static void main(String[] args) {
