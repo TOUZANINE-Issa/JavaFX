@@ -7,8 +7,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import modele.Utilisateur;
 import repositoriy.UtilisateurRepository;
-
-import java.awt.*;
 import java.io.IOException;
 
 import static appli.StartApplication.changeScene;
@@ -19,7 +17,7 @@ public class InscriptionController {
     @FXML
     private TextField email;
     @FXML
-    private PasswordField motdepasse;
+    private PasswordField motDePasse;
     @FXML
     private TextField Nom;
     @FXML
@@ -29,31 +27,29 @@ public class InscriptionController {
 
 
     public void btnInscription() throws IOException {
-        System.out.println(email.getText());
-        System.out.println(motdepasse.getText());
-        System.out.println(Nom.getText());
-        System.out.println(Prenom.getText());
-        System.out.println(Confirme.getText());
-        if (Confirme.getText().isEmpty() ||
-                motdepasse.getText().isEmpty() ||
-                email.getText().isEmpty() ||
-                Nom.getText().isEmpty() ||
-                Prenom.getText().isEmpty()) {
-            System.out.println("Veuillez remplir tous les champs");
-        } else if (!motdepasse.getText().equals(Confirme.getText())) {
-            System.out.println("Les mots de passe ne correspondent pas");
-            }else{
-                Utilisateur utilisateur = new Utilisateur("utilisateur",Nom.getText(),Prenom.getText(),email.getText(),motdepasse.getText());
+        String nom = this.Nom.getText();
+        String prenom = this.Prenom.getText();
+        String email = this.email.getText();
+        String motDePasse = this.motDePasse.getText();
+        String confirme = this.Confirme.getText();
 
-                UtilisateurRepository.ajouterUtilisateur(utilisateur);
-                System.out.println("vous Inscrit 'o' ");
-            }
+        if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || motDePasse.isEmpty() || confirme.isEmpty()) {
+            System.out.println("Veuillez remplir tous les champs.");
         }
-        //else
-        //       Utilisateur utilisateur = new Utilisateur(Nom.getText(), Prenom.getText(), email.getText(), motdepasse.getText(),Role:"utilisateur");
-        //boolean estInscrit = utilisateurRepository
-        //    utilisateurDAO.ajouterUtilisateur(utilisateur);
-        //    System.out.println("");
+
+        if (!motDePasse.equals(confirme)) {
+            System.out.println("Les mots de passe ne correspondent pas.");
+        }else {
+            UtilisateurRepository utilisateurRepository = new UtilisateurRepository();
+            String role = "utilisateur";
+            Utilisateur utilisateur = new Utilisateur( role , nom, prenom, email, motDePasse);
+            utilisateurRepository.ajouterUtilisateur(utilisateur);
+
+
+            System.out.println("Inscription réussie !");
+        }
+
+    }
 
     public void btnRetour(ActionEvent actionEvent) throws IOException {
         StartApplication.changeScene("acceuil/Login");

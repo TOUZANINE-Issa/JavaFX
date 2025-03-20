@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import repositoriy.UtilisateurRepository;
 
 import java.io.IOException;
 
@@ -14,6 +15,8 @@ public class LoginController {
     private TextField email;
     @FXML
     private PasswordField motDePasse;
+
+    private UtilisateurRepository utilisateurRepository = new UtilisateurRepository();
 
     @FXML
     void btnConnexion() throws IOException {
