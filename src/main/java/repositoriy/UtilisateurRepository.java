@@ -6,6 +6,7 @@ import modele.Utilisateur;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ public class UtilisateurRepository {
 
     private Connection cnx;
 
-   public UtilisateurRepository() { this.cnx = Database.getConnexion(); }
+    public UtilisateurRepository() { this.cnx = Database.getConnexion(); }
 
     public UtilisateurRepository(Connection cnx) {
         this.cnx = cnx;
@@ -30,7 +31,7 @@ public class UtilisateurRepository {
 
     public void close() {
 
-}
+    }
 
 
     public boolean ajouterUtilisateur(Utilisateur utilisateur) {
@@ -54,7 +55,19 @@ public class UtilisateurRepository {
         try {
             PreparedStatement stmt = this.cnx.prepareStatement(sql);
             stmt.setString(1, email);
-            return (Utilisateur) stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Utilisateur utilisateur = new Utilisateur(
+                        rs.getString("nom"),
+                        rs.getString("prenom"),
+                        rs.getString("email"),
+                        rs.getString("mot_de_passe"),
+                        rs.getString("role")
+                );
+
+                return utilisateur;
+            }
+            return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

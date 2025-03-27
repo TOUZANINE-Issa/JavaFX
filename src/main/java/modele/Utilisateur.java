@@ -1,5 +1,7 @@
 package modele;
 
+import repositoriy.UtilisateurRepository;
+
 public class Utilisateur {
     private int idUtilisateur;
     private String nom;
