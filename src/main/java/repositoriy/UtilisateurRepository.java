@@ -35,14 +35,14 @@ public class UtilisateurRepository {
 
 
     public boolean ajouterUtilisateur(Utilisateur utilisateur) {
-        String sql = "INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, role) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO utilisateur (role, nom, prenom, email, mot_de_passe) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = this.cnx.prepareStatement(sql);
-            stmt.setString(1, utilisateur.getNom());
-            stmt.setString(2, utilisateur.getPrenom());
-            stmt.setString(3, utilisateur.getEmail());
-            stmt.setString(4, utilisateur.getMotDePasse());
-            stmt.setString(5, utilisateur.getRole());
+            stmt.setString(1, utilisateur.getRole());
+            stmt.setString(2, utilisateur.getNom());
+            stmt.setString(3, utilisateur.getPrenom());
+            stmt.setString(4, utilisateur.getEmail());
+            stmt.setString(5, utilisateur.getMotDePasse());
             stmt.executeUpdate();
             System.out.println("Utilisateur ajouté avec succès !");
         } catch (SQLException e) {
@@ -58,11 +58,12 @@ public class UtilisateurRepository {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Utilisateur utilisateur = new Utilisateur(
+                        rs.getString("role"),
                         rs.getString("nom"),
                         rs.getString("prenom"),
                         rs.getString("email"),
-                        rs.getString("mot_de_passe"),
-                        rs.getString("role")
+                        rs.getString("mot_de_passe")
+
                 );
 
                 return utilisateur;
@@ -94,14 +95,14 @@ public class UtilisateurRepository {
         System.out.println("Utilisateur supprimé avec succès !");
     }
     public void mettreAJourUtilisateur(Utilisateur utilisateur) {
-        String sql = "UPDATE utilisateur SET nom = ?, prenom = ?, email = ?, mot_de_passe = ?, role = ? WHERE email = ?";
+        String sql = "UPDATE utilisateur SET role = ?, nom = ?, prenom = ?, email = ?, mot_de_passe = ? WHERE email = ?";
         try {
             PreparedStatement stmt = this.cnx.prepareStatement(sql);
-            stmt.setString(1, utilisateur.getNom());
-            stmt.setString(2, utilisateur.getPrenom());
-            stmt.setString(3, utilisateur.getEmail());
-            stmt.setString(4, utilisateur.getMotDePasse());
-            stmt.setString(5, utilisateur.getRole());
+            stmt.setString(1, utilisateur.getRole());
+            stmt.setString(2, utilisateur.getNom());
+            stmt.setString(3, utilisateur.getPrenom());
+            stmt.setString(4, utilisateur.getEmail());
+            stmt.setString(5, utilisateur.getMotDePasse());
             stmt.setString(6, utilisateur.getEmail());
             stmt.executeUpdate();
         } catch (SQLException e) {

@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import repositoriy.UtilisateurRepository;
 import modele.Utilisateur;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import java.io.IOException;
 
 public class LoginController {
@@ -23,17 +25,21 @@ public class LoginController {
 
 
     @FXML
-    void btnConnexion() throws IOException {
+    public void btnConnexion() throws IOException {
         System.out.println("Votre Email : "+email.getText());
         System.out.println("Votre Mot de passe : "+motDePasse.getText());
         UtilisateurRepository utilisateurRepository = new UtilisateurRepository();
         Utilisateur utilisateur = utilisateurRepository.getUtilisateurParEmail(email.getText());
+        BCryptPasswordEncoder motDePasseHacher = new BCryptPasswordEncoder();
+
+        System.out.println("Votre Mot de passe : "+utilisateur.getMotDePasse());
 
         if (email.getText().isEmpty() || motDePasse.getText().isEmpty()) {
             System.out.println("Veuillez remplir tous les champs.");
-        }
-        if ( utilisateur != null ){
-            System.out.println("c bon ");
+        }else if (utilisateur != null && motDePasseHacher.matches(motDePasse.getText(), utilisateur.getMotDePasse())) {
+        System.out.print("Connexion réussie !");
+            System.out.println("Al HAMDOULILEHH !");
+
 
         }else {
             System.out.println("c pas bon ");

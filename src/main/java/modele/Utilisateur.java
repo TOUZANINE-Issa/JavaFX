@@ -49,7 +49,7 @@ public class Utilisateur {
         return email;
     }
 
-    public String getMotDePasse() {
+    public  String getMotDePasse() {
         return motDePasse;
     }
 

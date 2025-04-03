@@ -46,6 +46,7 @@ public class InscriptionController {
             System.out.println("Mot de passe hashé : " + mdpHacher);
 
             UtilisateurRepository utilisateurRepository = new UtilisateurRepository();
+
             String role = "utilisateur";
             Utilisateur utilisateur = new Utilisateur( role , nom, prenom, email, mdpHacher);
             utilisateurRepository.ajouterUtilisateur(utilisateur);
