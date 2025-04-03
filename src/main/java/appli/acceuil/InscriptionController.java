@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import modele.Utilisateur;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import repositoriy.UtilisateurRepository;
 import java.io.IOException;
 
@@ -40,9 +41,13 @@ public class InscriptionController {
         if (!motDePasse.equals(confirme)) {
             System.out.println("Les mots de passe ne correspondent pas.");
         }else {
+            BCryptPasswordEncoder motDePasseHacher = new BCryptPasswordEncoder();
+            String mdpHacher = motDePasseHacher.encode(motDePasse);
+            System.out.println("Mot de passe hashé : " + mdpHacher);
+
             UtilisateurRepository utilisateurRepository = new UtilisateurRepository();
             String role = "utilisateur";
-            Utilisateur utilisateur = new Utilisateur( role , nom, prenom, email, motDePasse);
+            Utilisateur utilisateur = new Utilisateur( role , nom, prenom, email, mdpHacher);
             utilisateurRepository.ajouterUtilisateur(utilisateur);
 
 
