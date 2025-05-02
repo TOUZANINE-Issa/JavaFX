@@ -15,7 +15,7 @@ public class StartApplication extends Application {
         mainStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("acceuil/LoginView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 220, 360);
-        mainStage.setTitle("Connexion/Inscription");
+        mainStage.setTitle("acceuil/Inscription");
         mainStage.setScene(scene);
         mainStage.show();
     }
